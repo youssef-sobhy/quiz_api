@@ -11,10 +11,10 @@ class User < ActiveRecord::Base
 
   include DeviseTokenAuth::Concerns::User
 
-  validates_presence_of :first_name,
-                        :last_name,
-                        :user_name
+  validates :first_name,
+            :last_name,
+            :user_name, presence: true
 
-  validates_uniqueness_of :user_name,
-                          :email
+  validates :user_name,
+            :email, uniqueness: true
 end
