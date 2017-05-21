@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
+# This is the topics controller where gamemaker
+# can create, read, update and delete topics
 class TopicsController < ApplicationController
-  before_action :set_topic, only: [:show, :update, :destroy]
+  before_action :set_topic, only: %i[show update destroy]
 
   # GET /topics
   def index
@@ -23,7 +27,6 @@ class TopicsController < ApplicationController
         format.json { render json: @topic.errors }
       end
     end
- 
   end
 
   # GET /topics/:id
@@ -40,7 +43,6 @@ class TopicsController < ApplicationController
     head :no_content
   end
 
-
   # DELETE /topics/:id
   def destroy
     @topic.destroy
@@ -49,6 +51,7 @@ class TopicsController < ApplicationController
   end
 
   private
+
   def topic_params
     params.require(:topic).permit(:title, :description, :logo)
   end
