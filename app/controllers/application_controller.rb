@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
+  include ActionController::MimeResponds
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -9,6 +10,7 @@ class ApplicationController < ActionController::API
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name,
                                                        :last_name,
                                                        :user_name,
-                                                       :date_of_birth])
+                                                       :date_of_birth,
+                                                       :picture])
   end
 end

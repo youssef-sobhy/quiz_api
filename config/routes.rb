@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   as :game_maker do
     # Define routes for GameMaker within this block.
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  resources :users 
 end
