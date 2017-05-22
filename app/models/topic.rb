@@ -4,4 +4,6 @@
 # topic has many quizzes
 class Topic < ApplicationRecord
   has_many :quizzes, dependent: :destroy
+
+  validates :title, :description, presence: true
 end

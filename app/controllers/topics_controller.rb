@@ -16,15 +16,13 @@ class TopicsController < ApplicationController
 
   # POST /topics
   def create
-    @topic = topic.new(topic_params)
+    @topic = Topic.new(topic_params)
 
-    if @topic.save
-      respond_to do |format|
+    respond_to do |format|
+      if @topic.save
         format.json { render json: @topic }
-      end
-    else
-      respond_to do |format|
-        format.json { render json: @topic.errors }
+      else
+        format.json { render json: @topic.errors.full_messages, status: :bad_request }
       end
     end
   end
@@ -38,16 +36,22 @@ class TopicsController < ApplicationController
 
   # PUT /topics/:id
   def update
-    @topic.update!(topic_params)
-
-    head :no_content
+    respond_to do |format|
+      if @topic.update topic_params
+        format.json { render json: @topic }
+      else
+        format.json { render json: @topic.errors.full_messages, status: :bad_request }
+      end
+    end
   end
 
   # DELETE /topics/:id
   def destroy
     @topic.destroy
 
-    head :no_content
+    respond_to do |format|
+      format.json { render status: :ok }
+    end
   end
 
   private
