@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521141906) do
+ActiveRecord::Schema.define(version: 20170521162059) do
 
   create_table "game_makers", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -38,6 +38,14 @@ ActiveRecord::Schema.define(version: 20170521141906) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["topic_id"], name: "index_quizzes_on_topic_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "logo"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|
