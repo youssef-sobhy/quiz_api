@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
   resources :topics do
     resources :quizzes do
-      resources :questions
+      resources :questions do
+        resources :choices, only: [:update, :destroy]
+      end
     end
   end
 end

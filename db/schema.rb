@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521162059) do
+ActiveRecord::Schema.define(version: 20170524153412) do
+
+  create_table "choices", force: :cascade do |t|
+    t.string   "choice",                       null: false
+    t.boolean  "right_choice", default: false, null: false
+    t.integer  "question_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["question_id"], name: "index_choices_on_question_id"
+  end
 
   create_table "game_makers", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -29,6 +38,14 @@ ActiveRecord::Schema.define(version: 20170521162059) do
     t.index ["email"], name: "index_game_makers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_game_makers_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_game_makers_on_uid_and_provider", unique: true
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text     "question",   null: false
+    t.integer  "quiz_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_questions_on_quiz_id"
   end
 
   create_table "quizzes", force: :cascade do |t|
