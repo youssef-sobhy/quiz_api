@@ -26,10 +26,14 @@ class QuizzesController < ApplicationController
 
 
 	def update
-	    @quiz.update(quiz_params)
-
-	    head :no_content
-	end
+    respond_to do |format|
+      if @quiz.update quiz_params
+        format.json { render json: @quiz }
+      else
+        format.json { render json: @quiz.errors}
+      end
+    end
+  end
 
 	def destroy
 		@quiz.destroy
