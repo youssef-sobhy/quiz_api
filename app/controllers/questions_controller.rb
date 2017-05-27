@@ -3,12 +3,21 @@
 # questions controller
 class QuestionsController < ApplicationController
 
+  before_action :authenticate_game_maker!, only: [:create, :update, :destroy]
+
   def index
     @quiz = Quiz.find(params[:quiz_id])
     @questions = @quiz.questions
 
     respond_to do |format|
-      format.json { render json: @questions }
+      format.json { render json: @questions.to_json({
+        only: [:id, :question], include: {
+          choices: {
+            only: [:id, :choice, :right_choice]
+          }
+        }
+      })
+    }
     end
   end
 
@@ -18,7 +27,14 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save!
-        format.json { render json: @question }
+        format.json { render json: @question.to_json({
+          include: {
+            choices: {
+              only: [:id, :choice, :right_choice]
+            }
+          }
+        })
+      }
       else
         format.json { render json: @question.errors.full_messages, status: :bad_request }
       end
