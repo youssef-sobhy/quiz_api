@@ -14,6 +14,7 @@ class QuizzesController < ApplicationController
     	respond_to do |format|
 			format.json { render json: @quiz}
 	end
+end
 
 
 	def create
@@ -26,17 +27,21 @@ class QuizzesController < ApplicationController
 
 
 	def update
-	    @quiz.update(quiz_params)
-
-	    head :no_content
-	end
+    respond_to do |format|
+      if @quiz.update quiz_params
+        format.json { render json: @quiz }
+      else
+        format.json { render json: @quiz.errors}
+      end
+    end
+  end
 
 	def destroy
 		@quiz.destroy
 
 		head :no_content
-		end
 	end
+	
 
  private
 	def quiz_params
