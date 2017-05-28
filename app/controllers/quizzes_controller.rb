@@ -14,6 +14,7 @@ class QuizzesController < ApplicationController
     	respond_to do |format|
 			format.json { render json: @quiz}
 	end
+end
 
 
 	def create
@@ -39,8 +40,8 @@ class QuizzesController < ApplicationController
 		@quiz.destroy
 
 		head :no_content
-		end
 	end
+	
 
  private
 	def quiz_params
