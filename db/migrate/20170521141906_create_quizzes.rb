@@ -3,7 +3,7 @@ class CreateQuizzes < ActiveRecord::Migration[5.0]
     create_table :quizzes do |t|
       t.string :title
       t.integer :passing_score
-      t.references :topic, foreign_key: true
+      t.belongs_to :topic, foreign_key: true
 
       t.timestamps
     end
