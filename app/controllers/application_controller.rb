@@ -11,13 +11,13 @@ class ApplicationController < ActionController::API
                                                        :last_name,
                                                        :user_name,
                                                        :date_of_birth])
-    
+
     devise_parameter_sanitizer(:account_update, keys: [:first_name,
                                                        :last_name,
                                                        :user_name,
                                                        :date_of_birth,
+                                                       :current_password,
                                                        :password,
-                                                       :password_confirmation,
-                                                       :current_password])
+                                                       :password_confirmation])
   end
 end
