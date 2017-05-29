@@ -4,6 +4,7 @@ class QuizzesController < ApplicationController
 
 	
 	def index
+		@quizzes = @topic.quizzes
 		respond_to do |format|
 			format.json { render json: @quizzes}
 		end
@@ -11,12 +12,13 @@ class QuizzesController < ApplicationController
 
 	def show
     	respond_to do |format|
-			format.json { render json: @quizzes}
+			format.json { render json: @quiz}
 	end
+end
 
 
 	def create
-	    @topic.quizzes.create!(quiz_params)
+	    @quiz = @topic.quizzes.create!(quiz_params)
 
 	    respond_to do |format|
 	    	format.json { render json: @quiz}
@@ -25,17 +27,21 @@ class QuizzesController < ApplicationController
 
 
 	def update
-	    @quiz.update(quiz_params)
-
-	    head :no_content
-	end
+    respond_to do |format|
+      if @quiz.update quiz_params
+        format.json { render json: @quiz }
+      else
+        format.json { render json: @quiz.errors}
+      end
+    end
+  end
 
 	def destroy
 		@quiz.destroy
 
 		head :no_content
-		end
 	end
+	
 
  private
 	def quiz_params
@@ -47,6 +53,6 @@ class QuizzesController < ApplicationController
 	end
 
 	def set_topic_quiz
-		quiz = @topic.quizzes.find_by!(id: params[:id]) if @topic
+		@quiz = @topic.quizzes.find_by!(id: params[:id]) if @topic
 	end
 end

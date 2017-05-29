@@ -7,3 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create first_name: 'youssef', last_name: 'sobhy', user_name: 'joey1337', email: 'joey1337@gmail.com', date_of_birth: '1994/11/07', password: 'joey1337', password_confirmation: 'joey1337'
+
+topics = Topic.create([
+  {title: 'Ruby', description: 'this is the ruby topic'},
+  {title: 'JS', description: 'this is the javascript topic'},
+  {title: 'CSS', description: 'this is the css topic'}
+  ])
+Quiz.create(title: 'Methods', passing_score: 90, topic_id: 1)
