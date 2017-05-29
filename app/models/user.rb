@@ -2,6 +2,8 @@
 
 # Defines a user class
 class User < ActiveRecord::Base
+  has_many :user_answers
+
   # Include default devise modules.
   devise :database_authenticatable,
          :registerable,
