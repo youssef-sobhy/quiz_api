@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521133102) do
+ActiveRecord::Schema.define(version: 20170527215439) do
+
+  create_table "choices", force: :cascade do |t|
+    t.string   "choice",                       null: false
+    t.boolean  "right_choice", default: false, null: false
+    t.integer  "question_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["question_id"], name: "index_choices_on_question_id"
+  end
 
   create_table "game_makers", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -31,12 +40,40 @@ ActiveRecord::Schema.define(version: 20170521133102) do
     t.index ["uid", "provider"], name: "index_game_makers_on_uid_and_provider", unique: true
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.text     "question",   null: false
+    t.integer  "quiz_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_questions_on_quiz_id"
+  end
+
+  create_table "quizzes", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "passing_score"
+    t.integer  "topic_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["topic_id"], name: "index_quizzes_on_topic_id"
+  end
+
   create_table "topics", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.string   "logo"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "user_answers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "choice_id"
+    t.integer  "quiz_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["choice_id"], name: "index_user_answers_on_choice_id"
+    t.index ["quiz_id"], name: "index_user_answers_on_quiz_id"
+    t.index ["user_id"], name: "index_user_answers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
