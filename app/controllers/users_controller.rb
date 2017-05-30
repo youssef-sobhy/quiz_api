@@ -1,26 +1,20 @@
-class UsersController < ApplicationController
-  def show
-    @user = User.last
+# frozen_string_literal: true
 
+# This is the users controller where user
+# can show his account
+class UsersController < ApplicationController
+  before_action :set_user %i[show]
+
+  # GET /users/:id
+  def show
     respond_to do |format|
       format.json { render json: @user }
-    end
+    end 
   end
-
-	def update
-		@user = User.last
-		respond_to do |format|
-			if @user.update(user_params)
-				format.json { render json: @user }
-			else
-				format.json { render json: @user.error.full_messages }
-			end
-		end
-	end	
 
   private
 
-  def user_params
-    params.require(:user).permit(:picture)
+  def set_user
+    @user = current_user
   end
 end
