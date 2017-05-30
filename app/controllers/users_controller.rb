@@ -3,7 +3,7 @@
 # This is the users controller where user
 # can show his account
 class UsersController < ApplicationController
-  before_action :set_user %i[show update]
+  before_action :set_user %i[show]
 
   # GET /users/:id
   def show

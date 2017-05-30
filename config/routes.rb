@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   resources :topics do
     resources :quizzes
   end
+
+  get '/user/:id', to: 'user#show'
 end
