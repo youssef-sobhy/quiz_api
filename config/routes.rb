@@ -17,4 +17,8 @@ Rails.application.routes.draw do
 
   resources :users, only: :show
   resources :user_answers, only: :create
+
+  mount Facebook::Messenger::Server, at: 'bot'
+
+  get '/privacy_policy', :to => redirect('/privacypolicy.html')
 end

@@ -36,5 +36,9 @@ module QuizApi
           :methods => [:get, :post, :options, :delete, :put, :patch]
       end
     end
+    
+    # Auto-load the bot and its subdirectories
+    config.paths.add File.join('app', 'bot'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', 'bot', '*')]
   end
 end

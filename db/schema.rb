@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(version: 20170527215439) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "provider",               default: "",      null: false
-    t.string   "uid",                    default: "email", null: false
+    t.string   "provider",               default: "email", null: false
+    t.string   "uid",                    default: "",      null: false
     t.string   "first_name",                               null: false
     t.string   "last_name",                                null: false
     t.date     "date_of_birth",                            null: false
