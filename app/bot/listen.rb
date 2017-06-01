@@ -1,3 +1,14 @@
+require "redis"
+require "json"
+
+redis = Redis.new
+
+# redis.set "foo", [1, 2, 3].to_json
+# # => OK
+
+# JSON.parse(redis.get("foo"))
+
+
 include Facebook::Messenger
 
 Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
@@ -50,17 +61,46 @@ Bot.on :postback do |postback|
 
   if postback.payload["Topic"]
     topic = Topic.find(postback.payload.split("Topic:").last)
+    redis.hset(postback.sender['id'], 'topic', topic.id)
     message_text = 'You selected the topic' + topic.title + ' and it has the following quizzes '
 
-    topic.quizzes.each {|q| message_text += q.title}
+    quizzes = topic.quizzes
+    buttons = []
+  
+    quizzes.each do |quiz|
+      btn = {
+        type: 'postback', 
+        title: quiz.title, 
+        payload: "Quiz:#{quiz.id}"
+      }
+      buttons << btn
+    end
 
     Bot.deliver({
       recipient: postback.sender,
-      message: {
-        text: message_text
+        message: {
+          attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'button',
+            text: 'Select one of the quizzes below',
+            buttons: buttons
+          }
+        }
       }
     }, access_token: ENV["ACCESS_TOKEN"])
   elsif postback.payload["Quiz"]
+    quiz = Quiz.find(postback.payload.split("Quiz:").last)
+    redis.hset(postback.sender['id'], 'quiz', quiz.id)
+
+    Bot.deliver({
+      recipient: postback.sender,
+        message: {
+          text: "The quiz has #{quiz.questions.length} questions"
+        }
+      }, access_token: ENV["ACCESS_TOKEN"])
+
+    p redis.hgetall(postback.sender['id'])
   end
     
 end

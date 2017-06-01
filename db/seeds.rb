@@ -15,6 +15,8 @@ Topic.create!([
   ])
 
 Quiz.create!(title: 'Methods', passing_score: 90, topic_id: 1)
+Quiz.create!(title: 'OOP', passing_score: 90, topic_id: 1)
+Quiz.create!(title: 'Loops', passing_score: 90, topic_id: 1)
 
 User.create!(user_name: 'joey1337',
             first_name: 'youssef',
