@@ -189,7 +189,6 @@ DEPENDENCIES
   devise_token_auth (~> 0.1.40)
   factory_girl_rails
   faker
-  fog (~> 1.38)
   listen (~> 3.0.5)
   mini_magick (~> 4.7.0)
   puma (~> 3.0)

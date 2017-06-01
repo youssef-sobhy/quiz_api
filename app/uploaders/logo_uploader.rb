@@ -6,6 +6,8 @@ class LogoUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   storage :file
+  process resize_to_fit: [200, 200]
+
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
@@ -19,7 +21,7 @@ class LogoUploader < CarrierWave::Uploader::Base
   #   # For Rails 3.1+ asset pipeline compatibility:
   #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
   #
-    "/images/fallback/" + [version_name, "default.png"].compact.join('_')
+    "/images/fallback/" + [version_name, "default.jpeg"].compact.join('_')
   end
 
   # Process files as they are uploaded:
@@ -30,8 +32,8 @@ class LogoUploader < CarrierWave::Uploader::Base
   # end
 
   # # Create different versions of your uploaded files:
-  version :resized do
-    process resize_to_fit: [100, 100]
+  version :logo do
+    process resize_to_fit: [150, 150]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

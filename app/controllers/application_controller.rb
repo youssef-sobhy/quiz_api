@@ -12,8 +12,7 @@ class ApplicationController < ActionController::API
                                                        :user_name,
                                                        :date_of_birth,
                                                        :picture])
-                                                       :date_of_birth])
-    devise_parameter_sanitizer(:account_update, keys: [:first_name,
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name,
                                                        :last_name,
                                                        :user_name,
                                                        :date_of_birth,
