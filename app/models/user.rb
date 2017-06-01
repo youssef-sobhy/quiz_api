@@ -3,6 +3,7 @@
 # Defines a user class
 class User < ActiveRecord::Base
   has_many :user_answers
+  has_many :scores
 
   # Include default devise modules.
   devise :database_authenticatable,

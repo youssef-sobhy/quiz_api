@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170527215439) do
+ActiveRecord::Schema.define(version: 20170531093037) do
 
   create_table "choices", force: :cascade do |t|
     t.string   "choice",                       null: false
@@ -57,6 +57,16 @@ ActiveRecord::Schema.define(version: 20170527215439) do
     t.index ["topic_id"], name: "index_quizzes_on_topic_id"
   end
 
+  create_table "scores", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "quiz_id"
+    t.float    "score",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_scores_on_quiz_id"
+    t.index ["user_id"], name: "index_scores_on_user_id"
+  end
+
   create_table "topics", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -77,8 +87,8 @@ ActiveRecord::Schema.define(version: 20170527215439) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "provider",               default: "",      null: false
-    t.string   "uid",                    default: "email", null: false
+    t.string   "provider",               default: "email", null: false
+    t.string   "uid",                    default: "",      null: false
     t.string   "first_name",                               null: false
     t.string   "last_name",                                null: false
     t.date     "date_of_birth",                            null: false

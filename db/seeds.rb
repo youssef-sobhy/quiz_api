@@ -6,8 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create!(first_name: 'Mahmoud', last_name: 'Abdulazim', user_name: 'aze3ma', email: 'aze3ma@gmail.com', password: '12345678', password_confirmation: '12345678', date_of_birth: '01/04/1994')
-
 Topic.create!([
   {title: 'Ruby', description: 'this is the ruby topic'},
   {title: 'JS', description: 'this is the javascript topic'},
@@ -23,6 +21,13 @@ User.create!(user_name: 'joey1337',
             email: 'joey1337@gmail.com',
             password: 'joey1337',
             password_confirmation: 'joey1337')
+User.create!(first_name: 'Mahmoud',
+             last_name: 'Abdulazim',
+             user_name: 'aze3ma',
+             email: 'aze3ma@gmail.com',
+             password: '12345678',
+             password_confirmation: '12345678',
+             date_of_birth: '01/04/1994')
 GameMaker.create!(user_name: 'admin1337',
                  first_name: 'admin',
                  last_name: 'admin',

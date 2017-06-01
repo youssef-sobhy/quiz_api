@@ -19,4 +19,5 @@ Rails.application.routes.draw do
 
   resources :users, only: :show
   resources :user_answers, only: :create
+  resources :scores, only: :create
 end
