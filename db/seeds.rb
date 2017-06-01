@@ -6,9 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create first_name: 'youssef', last_name: 'sobhy', user_name: 'joey1337', email: 'joey1337@gmail.com', date_of_birth: '1994/11/07', password: 'joey1337', password_confirmation: 'joey1337'
-
-topics = Topic.create([
 User.create!(first_name: 'Mahmoud', last_name: 'Abdulazim', user_name: 'aze3ma', email: 'aze3ma@gmail.com', password: '12345678', password_confirmation: '12345678', date_of_birth: '01/04/1994')
 
 Topic.create!([

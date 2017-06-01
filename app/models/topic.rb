@@ -3,8 +3,6 @@
 # topic has many quizzes
 class Topic < ApplicationRecord
 
-	# attr_accessor :remote_logo_url
-
   has_many :quizzes, dependent: :destroy
 
   validates :title, :description, presence: true
