@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Facebook::Messenger::Server, at: "bot"
+
   mount_devise_token_auth_for 'User', at: 'auth'
 
   mount_devise_token_auth_for 'GameMaker', at: 'gamemaker_auth'

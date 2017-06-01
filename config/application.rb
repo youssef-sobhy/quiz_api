@@ -27,6 +27,10 @@ module QuizApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    # Auto-load /bot and its subdirectories
+    config.paths.add File.join("app", "bot"), glob: File.join("**","*.rb")
+    config.autoload_paths += Dir[Rails.root.join("app", "bot", "*")]
+
     config.middleware.use Rack::Cors do
       allow do
         origins '*'
