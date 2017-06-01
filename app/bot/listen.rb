@@ -5,9 +5,11 @@ include Facebook::Messenger
 Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
 
 users_hash = {}
+i = 1
 
 Bot.on :message do |message|
   message.mark_seen
+  message.typing_on
 
   if message.text[/^\d-/]
     payload = message.quick_reply
@@ -16,13 +18,33 @@ Bot.on :message do |message|
     users_hash[message.sender['id']][:correct_choices] += 1 if choice.right_choice
 
     if users_hash[message.sender['id']][:current_question] == (users_hash[message.sender['id']][:questions].length - 1)
+
+      correct_choices = users_hash[message.sender['id']][:correct_choices]
+      questions = users_hash[message.sender['id']][:questions]
+
+      score = (correct_choices.to_f / questions.size) * 100
+
       Bot.deliver({
         recipient: message.sender,
-        message: { text: "Hurray"}
+        message: { text: "Hurray, you SMASHED the quiz! and your score is #{score.to_i}%"}
+      }, access_token: ENV['ACCESS_TOKEN'])
+
+      Bot.deliver({
+        recipient: message.sender,
+        message: {
+          attachment: {
+            type: 'image',
+            payload: {
+              url: 'https://i.ytimg.com/vi/WQbQMOb94Ps/maxresdefault.jpg'
+            }
+          }
+        }
       }, access_token: ENV['ACCESS_TOKEN'])
     else
+      i += 1
       users_hash[message.sender['id']][:current_question] += 1
       question = users_hash[message.sender['id']][:questions][users_hash[message.sender['id']][:current_question]]
+
       choices = question.choices.map.with_index do |choice, i|
         choice = {
           content_type: 'text',
@@ -34,7 +56,7 @@ Bot.on :message do |message|
       Bot.deliver({
         recipient: message.sender,
         message: {
-          text: "#{question.question}",
+          text: "#{i}- #{question.question}",
           quick_replies: choices
         }
       }, access_token: ENV['ACCESS_TOKEN'])
@@ -121,7 +143,7 @@ Bot.on :postback do |postback|
     Bot.deliver({
       recipient: postback.sender,
       message: {
-        text: "1- #{question.question}",
+        text: "#{i}- #{question.question}",
         quick_replies: choices
       }
     }, access_token: ENV['ACCESS_TOKEN'])
@@ -143,6 +165,9 @@ Bot.on :postback do |postback|
     #     }
     #   }, access_token: ENV['ACCESS_TOKEN'])
     # end
-    p users_hash
+
+
+
+    p users_hash[:correct_choices]
   end
 end

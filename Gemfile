@@ -36,7 +36,7 @@ gem 'devise_token_auth', '~> 0.1.40'
 gem 'facebook-messenger'
 
 # In-memory database
-# gem 'redis'
+gem 'redis'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
